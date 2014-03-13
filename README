@@ -1,0 +1,43 @@
+Maven Tutorial
+
+maven.step0
+ - show effective pom for empty project
+ - show different effective pom for different packaging types (pom vs jar )
+mvn help:effective-pom
+
+maven.step1
+ - multi-module maven project
+ - inheritance vs aggregation
+ mvn clean install
+ mvn help:effective-pom
+
+maven.step2
+- define all dependencies explicitly
+- define all dependencies in dependencyManagement section
+- define all dependencies versions and scopes using custom properties
+- define dependencies as much specific as possible
+
+maven.step3
+- define default plugins explicitly
+- define helpful plugins
+- define other plugins in pluginManagement section
+- to override plugin default behaviour use combine.self and combine.children properties in configuration section
+mvn dependency:tree
+mvn dependency:analyze
+mvn versions:display-plugin-updates versions:display-dependency-updates versions:display-property-updates
+
+maven.step4
+ - define profiles in root pom only
+ - override profiles only in extreme cases
+ - profiles could be executed in single command but remember that profiles are merged
+ - compilation error possible if you changed module that you depend from
+
+maven.step5
+ - scope 'provided'
+ - profile ah-functional
+
+maven.step6
+- combine.children="append" behaviour for functional profile. Added Integration test
+- profile cobertura. Child1 extends cobertura plugin adding 1 exclusions
+- NOTE: profile cobertura must not be defined in the root pom since it isn't used by most of modules
+but plugin cobertura must be defined in pluginManagement section and redefined in modules that actually use this plugin
