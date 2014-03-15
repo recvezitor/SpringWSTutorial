@@ -6,7 +6,7 @@
         <groupId>com.dimas</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <artifactId>Simulator</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>SpringWSTutorial::Root::Simulator</name>
@@ -24,6 +24,77 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-support</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-xml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-deploy</artifactId>
+        </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <!--mvn clean compile -P simulatorSquare-->
+            <id>simulatorSquare</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>jaxb2-maven-plugin</artifactId>
+                        <version>${jaxb2-maven-plugin.version}</version>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <bindingDirectory>src/main/resources</bindingDirectory>
+                            <outputDirectory>src/main/java</outputDirectory>
+                            <clearOutputDir>false</clearOutputDir>
+                            <wsdl>true</wsdl>
+                            <xmlschema>false</xmlschema>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>simulatorSquare</id>
+                                <goals>
+                                    <goal>xjc</goal>
+                                </goals>
+                                <configuration>
+                                    <schemaFiles>spring-ws2-square.xsd</schemaFiles>
+                                    <packageName>com.dimas.simulator.generated</packageName>
+                                    <staleFile>
+                                        ${project.build.directory}/generated-sources/jaxb/simulatorSquare/.staleFlag
+                                    </staleFile>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 
 </project>
