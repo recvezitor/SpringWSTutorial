@@ -160,27 +160,7 @@
             <version>${junit.version}</version>
             <scope>${junit.scope}</scope>
         </dependency>
-        <!--&lt;!&ndash;Mockito&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.mockito</groupId>-->
-            <!--<artifactId>mockito-all</artifactId>-->
-            <!--<version>${mockito.version}</version>-->
-            <!--<scope>${mockito.scope}</scope>-->
-        <!--</dependency>-->
-        <!--&lt;!&ndash;Log4j&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>log4j</groupId>-->
-            <!--<artifactId>log4j</artifactId>-->
-            <!--<version>${log4j.version}</version>-->
-            <!--<scope>${log4j.scope}</scope>-->
-        <!--</dependency>-->
-        <!--&lt;!&ndash;Slf4j&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.slf4j</groupId>-->
-            <!--<artifactId>slf4j-log4j12</artifactId>-->
-            <!--<version>${slf4j.version}</version>-->
-            <!--<scope>${slf4j.scope}</scope>-->
-        <!--</dependency>-->
+        <!--Slf4j-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -300,6 +280,7 @@
         <module>Proxy</module>
         <module>Simple</module>
         <module>SimpleSpring</module>
+        <module>SimpleSpringWS</module>
     </modules>
 
     <profiles>

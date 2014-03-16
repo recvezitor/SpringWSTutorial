@@ -18,3 +18,7 @@ step1
  - spring context is loaded using ContextLoaderListener
  - added dependency spring-web
  - http://localhost:8080/SimpleSpring/hello
+
+ step2
+ - the simplest spring web service
+ - http://localhost:8080/SimpleSpringWS/getSquare.wsdl

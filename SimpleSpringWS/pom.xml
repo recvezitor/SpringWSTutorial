@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>SpringWSTutorial</artifactId>
+        <groupId>com.dimas</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>SimpleSpringWS</artifactId>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>SpringWSTutorial::Root::SimpleSpringWS</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <!--mvn clean compile -P simpleSpringWS-->
+            <id>simpleSpringWS</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>jaxb2-maven-plugin</artifactId>
+                        <version>${jaxb2-maven-plugin.version}</version>
+                        <configuration>
+                            <schemaDirectory>src/main/resources</schemaDirectory>
+                            <bindingDirectory>src/main/resources</bindingDirectory>
+                            <outputDirectory>src/main/java</outputDirectory>
+                            <clearOutputDir>false</clearOutputDir>
+                            <wsdl>true</wsdl>
+                            <xmlschema>false</xmlschema>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>simulatorSquare</id>
+                                <goals>
+                                    <goal>xjc</goal>
+                                </goals>
+                                <configuration>
+                                    <schemaFiles>spring-ws2-square.xsd</schemaFiles>
+                                    <packageName>com.dimas.simpleSpringWS.generated</packageName>
+                                    <staleFile>
+                                        ${project.build.directory}/generated-sources/jaxb/SimpleSpringWS/.staleFlag
+                                    </staleFile>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
