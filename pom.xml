@@ -23,6 +23,9 @@
         <slf4j.scope>compile</slf4j.scope>
 
         <!--Dependency Management-->
+        <servlet-api.version>2.5</servlet-api.version>
+        <servlet-api.scope>provided</servlet-api.scope>
+
         <spring.version>3.1.2.RELEASE</spring.version>
         <spring.scope>compile</spring.scope>
         <spring-test.scope>test</spring-test.scope>
@@ -41,6 +44,9 @@
         <maven-surefire-plugin.version>2.16</maven-surefire-plugin.version>
         <maven-site-plugin.version>3.3</maven-site-plugin.version>
         <maven-deploy-plugin.version>2.8.1</maven-deploy-plugin.version>
+        <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
+        <maven-war-plugin.version>2.4</maven-war-plugin.version>
+        <maven-resourse-plugin.version>2.6</maven-resourse-plugin.version>
         <maven-dependency-plugin.version>2.8</maven-dependency-plugin.version>
         <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
 
@@ -49,10 +55,22 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>${servlet-api.version}</version>
+                <scope>${servlet-api.scope}</scope>
+            </dependency>
             <!--SpringFramework-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+                <scope>${spring.scope}</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
                 <version>${spring.version}</version>
                 <scope>${spring.scope}</scope>
             </dependency>
@@ -67,6 +85,12 @@
                 <artifactId>spring-test</artifactId>
                 <version>${spring.version}</version>
                 <scope>${spring-test.scope}</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+                <scope>${spring.scope}</scope>
             </dependency>
             <!--Spring-WS-->
             <dependency>
@@ -136,27 +160,27 @@
             <version>${junit.version}</version>
             <scope>${junit.scope}</scope>
         </dependency>
-        <!--Mockito-->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>${mockito.version}</version>
-            <scope>${mockito.scope}</scope>
-        </dependency>
-        <!--Log4j-->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-            <scope>${log4j.scope}</scope>
-        </dependency>
-        <!--Slf4j-->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>${slf4j.scope}</scope>
-        </dependency>
+        <!--&lt;!&ndash;Mockito&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.mockito</groupId>-->
+            <!--<artifactId>mockito-all</artifactId>-->
+            <!--<version>${mockito.version}</version>-->
+            <!--<scope>${mockito.scope}</scope>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash;Log4j&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>log4j</groupId>-->
+            <!--<artifactId>log4j</artifactId>-->
+            <!--<version>${log4j.version}</version>-->
+            <!--<scope>${log4j.scope}</scope>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash;Slf4j&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-log4j12</artifactId>-->
+            <!--<version>${slf4j.version}</version>-->
+            <!--<scope>${slf4j.scope}</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -172,6 +196,7 @@
     <reporting>
         <plugins>
             <plugin>
+                <!--mvn versions:display-plugin-updates versions:display-dependency-updates versions:display-property-updates>a.txt-->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>${versions-maven-plugin.version}</version>
@@ -225,6 +250,21 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>${maven-dependency-plugin.version}</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resourse-plugin.version}</version>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -259,6 +299,7 @@
         <module>Simulator</module>
         <module>Proxy</module>
         <module>Simple</module>
+        <module>SimpleSpring</module>
     </modules>
 
     <profiles>

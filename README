@@ -12,3 +12,9 @@ step0
    - copy 'simple.war' to tomcat folder 'webapps'
    - restart tomcat
    - http://localhost:8080/simple or http://localhost:8080/simple/hello
+
+step1
+ - the simplest web-app with servlet and spring context
+ - spring context is loaded using ContextLoaderListener
+ - added dependency spring-web
+ - http://localhost:8080/SimpleSpring/hello
