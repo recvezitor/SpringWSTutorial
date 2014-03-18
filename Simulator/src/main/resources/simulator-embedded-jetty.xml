@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:/simulator.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection"/>
+
+    <bean id="simulatorJetty" class="org.eclipse.jetty.server.Server" init-method="start" destroy-method="stop">
+        <property name="threadPool">
+            <bean id="threadPool" class="org.eclipse.jetty.util.thread.QueuedThreadPool">
+                <constructor-arg name="maxThreads" value="5"/>
+            </bean>
+        </property>
+        <property name="connectors">
+            <list>
+                <bean id="connector" class="org.eclipse.jetty.server.nio.SelectChannelConnector"
+                      p:port="${simulator.jetty.port}"
+                      p:maxIdleTime="30000"
+                      p:acceptors="2"
+                      p:confidentialPort="18443"/>
+            </list>
+        </property>
+        <property name="handler">
+            <bean id="handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
+                <property name="handlers">
+                    <list>
+                        <ref bean="contexts"/>
+                        <bean class="org.eclipse.jetty.servlet.ServletContextHandler">
+                            <property name="contextPath" value="/hithere"/>
+                            <property name="sessionHandler">
+                                <bean class="org.eclipse.jetty.server.session.SessionHandler"/>
+                            </property>
+                            <property name="resourceBase" value="."/>
+                            <property name="servletHandler">
+                                <bean class="org.eclipse.jetty.servlet.ServletHandler">
+                                    <property name="servlets">
+                                        <list>
+                                            <bean class="org.eclipse.jetty.servlet.ServletHolder">
+                                                <property name="name" value="spring-ws2"/>
+                                                <property name="servlet">
+                                                    <bean class="org.springframework.ws.transport.http.MessageDispatcherServlet"/>
+                                                </property>
+                                                <property name="initParameters">
+                                                    <map>
+                                                        <entry key="contextConfigLocation" value="${simulator.jetty.context}"/>
+                                                        <entry key="transformWsdlLocations" value="true"/>
+                                                    </map>
+                                                </property>
+                                            </bean>
+                                            <bean class="org.eclipse.jetty.servlet.ServletHolder">
+                                                <property name="name" value="HelloServlet"/>
+                                                <property name="servlet">
+                                                    <bean class="com.dimas.simulator.Hello"/>
+                                                </property>
+                                            </bean>
+                                        </list>
+                                    </property>
+                                    <property name="servletMappings">
+                                        <list>
+                                            <bean p:servletName="HelloServlet" p:pathSpec="/hello" class="org.eclipse.jetty.servlet.ServletMapping"/>
+                                            <bean p:servletName="spring-ws2" p:pathSpec="/*" class="org.eclipse.jetty.servlet.ServletMapping"/>
+                                        </list>
+                                    </property>
+                                </bean>
+                            </property>
+                        </bean>
+                        <bean class="org.eclipse.jetty.server.handler.RequestLogHandler"/>
+                        <bean id="defaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+</beans>

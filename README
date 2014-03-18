@@ -22,3 +22,10 @@ step1
  step2
  - the simplest spring web service
  - http://localhost:8080/SimpleSpringWS/getSquare.wsdl
+
+ step3
+ - there is no 'webapp' folder
+ - package type could be 'jar' instead 'war'
+ - javax.servlet:servlet-api has scope 'compile' since we run app not in servlet container
+ - http://localhost:18889/hithere/getSquare.wsdl
+ - http://localhost:18889/hithere/hello

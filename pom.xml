@@ -149,7 +149,15 @@
                 <artifactId>jetty-deploy</artifactId>
                 <version>${eclipse.jetty.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
         </dependencies>
+
+
     </dependencyManagement>
 
     <dependencies>
